@@ -1,6 +1,6 @@
 ## DAT110: Distributed Systems and Network Technology
 
-### Lab Week 3: 17/01 - 21/01
+### Lab Week 3: 15/01 - 19/01
 
 Note that some of the exercises below are marked as **optional**. These represents more challenging exercises. The first mandatory project will be about socket and network programming in Java. So even if Exercise 6 is optional, it is highly recommended to try to solve it in order to be well-prepared for undertaking the first project.
 
@@ -16,7 +16,7 @@ Problem P3 in Chap. 2 of the networking book with the modification that you shou
 
 #### Exercise 3 - DNS and HTTP Wireshark
 
-Perform the Wireshark exercises on HTTP and DNS described at http://www-net.cs.umass.edu/wireshark-labs/Wireshark_HTTP_v7.0.pdf and http://www-net.cs.umass.edu/wireshark-labs/Wireshark_DNS_v7.0.pdf
+Perform the Wireshark exercises on HTTP and DNS described at http://www-net.cs.umass.edu/wireshark-labs/Wireshark_HTTP_v8.0.pdf and http://www-net.cs.umass.edu/wireshark-labs/Wireshark_DNS_v8.0.pdf
 
 #### Exercise 4 - Threads and inter-thread communication
 
