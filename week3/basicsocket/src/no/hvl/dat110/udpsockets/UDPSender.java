@@ -4,7 +4,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public class UDPSender {
+public class socketUDPSender {
 
 	// host name and port with whom to communicate
 	private static String RECEIVER_HOST = "localhost";

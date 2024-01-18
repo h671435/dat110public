@@ -20,8 +20,10 @@ public class TemperatureDevice extends Thread {
 			
 				int temp = sn.read();
 				System.out.println("READING: " + temp);
-				
-				tm.setTemperature(temp);
+
+				synchronized (tm) {
+					tm.setTemperature(temp);
+				}
 
 				try {
 					Thread.sleep(1000);
