@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JavaRMI-Asynchronous-Client/JavaRMI-Asynchronous-Client.iml" filepath="$PROJECT_DIR$/JavaRMI-Asynchronous-Client/JavaRMI-Asynchronous-Client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaRMI-DSLab1/JavaRMI-DSLab1.iml" filepath="$PROJECT_DIR$/JavaRMI-DSLab1/JavaRMI-DSLab1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaRMI-iotthreads-synchronous/JavaRMI-iotthreads-synchronous.iml" filepath="$PROJECT_DIR$/JavaRMI-iotthreads-synchronous/JavaRMI-iotthreads-synchronous.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/week5.iml" filepath="$PROJECT_DIR$/.idea/week5.iml" />
+    </modules>
+  </component>
+</project>

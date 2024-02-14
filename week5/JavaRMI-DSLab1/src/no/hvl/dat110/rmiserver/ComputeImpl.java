@@ -1,5 +1,6 @@
 package no.hvl.dat110.rmiserver;
 
+import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -26,7 +27,7 @@ public class ComputeImpl extends UnicastRemoteObject implements ComputeInterface
 	public int addNumbers(int a, int b) {
 		
 		int sum = a + b;
-		
+
 		try {
 			Thread.sleep(5000);
 		}catch(InterruptedException e) {
@@ -36,5 +37,9 @@ public class ComputeImpl extends UnicastRemoteObject implements ComputeInterface
 		return sum;
 	}
 
+	public void closeServer() throws RemoteException {
+		UnicastRemoteObject.unexportObject(this, true);
+		System.out.println("Shutting down server");
+	}
 
 }
