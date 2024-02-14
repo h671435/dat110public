@@ -5,6 +5,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/CloudMQTT-IoT-Exercise/pom.xml" />
+        <option value="$PROJECT_DIR$/JavaRMI-Multicast-exercise/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
