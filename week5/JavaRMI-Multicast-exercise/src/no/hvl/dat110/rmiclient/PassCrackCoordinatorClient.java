@@ -45,24 +45,27 @@ public class PassCrackCoordinatorClient {
 	
 		Message message = new Message();
 		
-		int i=0;
+		int i = 0;
 		Map<String, Integer> workers = Utility.getWorkers();
 		Iterator<String> workernodes = workers.keySet().iterator();
 		while(workernodes.hasNext()) {
-			
-			// TODO
-			
 			// retrieve the next worker and pass the message as the argument in the constructor
+			String navn = workernodes.next();
 
 			// get the port of the registry on which the worker object is located
+			int port = workers.get(navn);
 
 			// get a reference to the worker using the Utility class
-			
+			PassCrackInterface worker = Utility.getWorkerstub(navn, port);
+
 			// create an instance of the workercallbackimpl
+			WorkerCallbackInterface wci = new WorkerCallbackImpl(message);
 			
-			// register the workercallbackimpl on worker	
-			
+			// register the workercallbackimpl on worker
+			worker.registerWorkerCallbackObject(wci);
+
 			// call the crackPassword remote method
+			worker.crackPassword(jobspasswordlen[i++], hashofpassword , navn);
 
 		}
 		

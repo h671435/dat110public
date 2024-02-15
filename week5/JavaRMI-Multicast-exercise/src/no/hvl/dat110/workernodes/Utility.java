@@ -56,10 +56,11 @@ public class Utility {
 		Registry registry = null;
 		try {			
 			// Get the registry for this worker node
-			
+			registry = LocateRegistry.getRegistry(port);
 			
 			// Look up the registry for the worker remote object
-			
+			workerstub = (PassCrackInterface) registry.lookup(name);
+
 
 		} catch(Exception e) {
 			//System.err.println("Error "+e.getMessage());

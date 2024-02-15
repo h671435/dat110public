@@ -28,6 +28,7 @@ public class MQTTSubClient implements MqttCallback {
 		// TODO: get the message payload 	
 		// Hint: messageArrived method is a callback function that is called from the MQTT broker
 		// print out the temp (See the MQTTSubTest)
+		System.out.println(new String(message.getPayload()));
 
 	}
 

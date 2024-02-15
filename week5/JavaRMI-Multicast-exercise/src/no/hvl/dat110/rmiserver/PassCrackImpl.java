@@ -42,22 +42,23 @@ public class PassCrackImpl extends UnicastRemoteObject implements PassCrackInter
 				
 				// TODO
 				// call the bruteforce method that performs the actual search and pass the result into password
-				
+				password = bruteforce(Utility.getKeyspace(), keylength, hashtocrack);
+
 				long end = System.currentTimeMillis();
 				long diff = end - start;
 				
 				if(!password.equals("")) {
-					// TODO
 					// call the foundPassword on workercallback to notify coordinator of the found password
+					workercallback.foundPassword(password, diff, workername);
 					// call shutdown on other workers
-					
+					sendShutdownMessage(workername);
 				}
 				
 				shutdownWorker(); 				// call shutdown on self
-			} catch (RemoteException e) {
+			} catch (RemoteException | NoSuchAlgorithmException e) {
 				e.printStackTrace();
-			}			
-		};
+			}
+        };
 		
 		Thread thread = new Thread(task);
 		thread.start();
@@ -71,13 +72,25 @@ public class PassCrackImpl extends UnicastRemoteObject implements PassCrackInter
 	 * @param hashtocrack
 	 * @throws NoSuchAlgorithmException 
 	 */
-	public String bruteforce(String[] keyspace, int keylength, String hashtocrack) {
-
-		// TODO
+	public String bruteforce(String[] keyspace, int keylength, String hashtocrack) throws NoSuchAlgorithmException {
 		// use the idea from the BruteForce.java to implement the search here...
-		
-		return "";
+		Iterator<List<String>> keys = Generator.permutation(keyspace).withRepetitions(keylength).iterator();
 
+		while(keys.hasNext()) {
+			List<String> key = keys.next();
+
+			String skey = "";
+			for (int i = 0; i < key.size(); i++) {
+				skey += key.get(i);
+			}
+
+			boolean found = PasswordUtility.verifyHash(skey, hashtocrack);
+			if (found) {
+				System.out.println(skey);
+				return skey;
+			}
+		}
+		return "";
 	}
 	
 	@Override

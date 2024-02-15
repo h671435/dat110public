@@ -23,15 +23,14 @@ public class PassCrackServer {
 	public void start() {
 		try {
 			
-			// TODO
 			// create registry where impl instance can be stored and retrieved
-			
-			
+			Registry registry = LocateRegistry.createRegistry(port);
+
 			// Make a new instance of the implementation class
-			
+			PassCrackInterface pci = new PassCrackImpl();
 			
 			// bind the remote object with a name in the registry
-			
+			registry.bind(name, pci);
 			
 			System.out.println(name + " server is running...");
 		}catch(Exception e) {
