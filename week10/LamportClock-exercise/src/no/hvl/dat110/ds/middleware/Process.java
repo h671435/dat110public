@@ -159,16 +159,19 @@ public class Process extends UnicastRemoteObject implements ProcessInterface {
 
         // implement the remaining
 
-//		 sort the queue according to timestamp and processID
-
+        // sort the queue according to timestamp and processID
+        sortQueue();
         // check the clock of the sending process
-
         // get the clock that is higher and update the local clock using clock.adjustClock()
-
         // increment the local clock
-
+        if (message.getClock() < clock.getClock()) {
+            clock.increment();
+        } else if (message.getClock() > clock.getClock()) {
+            clock.adjustClock(message.getClock());
+            clock.increment();
+        }
         // multicast acknowledgement to other processes including self
-
+        multicastAcknowledgement(message);
     }
 
     private void multicastAcknowledgement(Message message) throws AccessException, RemoteException {
@@ -189,12 +192,16 @@ public class Process extends UnicastRemoteObject implements ProcessInterface {
         // implement
 
         // iterate over the replicas
+        for (Map.Entry<String, Integer> entry : replicas.entrySet()) {
+            String replicaName = entry.getKey();
+            Integer replicaId = entry.getValue();
 
+            // for each replica, use Util.getProcessStub to get the replica stub (remote object)
 
-        // for each replica, use Util.getProcessStub to get the replica stub (remote object)
-
-        // call onMessageReceived() for each remote replica
-
+            // call onMessageReceived() for each remote replica
+            ProcessInterface replicaStub = Util.getProcessStub(replicaName, replicaId);
+            replicaStub.onMessageReceived(message);
+        }
     }
 
     private int exist(Message message) {
