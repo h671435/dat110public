@@ -55,33 +55,45 @@ public class Process extends UnicastRemoteObject implements ProcessInterface {
 	private void sortQueue() {
 		// TODO
 		// sort the queue by the clock (unique time stamped given by the sequencer)
+		for (int i = 0; i < queue.size(); i++) {
+			for (int j = 1; j < queue.size(); j++) {
+				if (queue.get(j).getClock() > queue.get(i).getClock()) {
+					Message temp = queue.get(i);
+					queue.set(i, queue.get(j));
+					queue.set(j, temp);
+				}
+			}
+		}
 	}
 	
 	// client initiated method
 	@Override
 	public void requestInterest(double interest) throws RemoteException {
-		// TODO 		
 		// make a new message instance and set the following:
 		// set the type of message - interest
 		// set the process ID
 		// set the interest
-
 		// send the message to the sequencer by calling the sendMessageToSequencer
-		
-
+		Message message = new Message();
+		message.setOptype(OperationType.INTEREST);
+		message.setProcessID(processID);
+		message.setInterest(interest);
+		sendMessageToSequencer(message);
 	}
 	
 	// client initiated method
 	@Override
 	public void requestDeposit(double amount) throws RemoteException {
-		// TODO 		
 		// make a new message instance and set the following
 		// set the type of message - deposit
 		// set the process ID
 		// set the deposit amount
-
 		// send the message to the sequencer
-
+		Message message = new Message();
+		message.setOptype(OperationType.DEPOSIT);
+		message.setProcessID(processID);
+		message.setDepositamount(amount);
+		sendMessageToSequencer(message);
 	}
 	
 	// client initiated method
@@ -92,9 +104,12 @@ public class Process extends UnicastRemoteObject implements ProcessInterface {
 		// set the type of message - withdrawal
 		// set the process ID
 		// set the withdrawal amount
-
 		// send the message to the sequencer
-
+		Message message = new Message();
+		message.setOptype(OperationType.WITHDRAWAL);
+		message.setProcessID(processID);
+		message.setWithdrawamount(amount);
+		sendMessageToSequencer(message);
 	}
 	
 	private void sendMessageToSequencer(Message message) throws RemoteException {
@@ -107,16 +122,25 @@ public class Process extends UnicastRemoteObject implements ProcessInterface {
 	}
 	
 	public void applyOperation() throws RemoteException {
-		// TODO
-		
+
 		// iterate over the queue
-		
-		// for each message in the queue, check the operation type
-		
-		// call the appropriate update method for the operation type and pass the value to be updated
-		
+		for (Message message : queue) {
+			// for each message in the queue, check the operation type
+			OperationType opType = message.getOptype();
+			// call the appropriate update method for the operation type and pass the value to be updated
+			switch (opType) {
+				case DEPOSIT:
+					updateDeposit(message.getDepositamount());
+						break;
+				case WITHDRAWAL:
+					updateWithdrawal(message.getWithdrawamount());
+					break;
+				case INTEREST:
+					updateInterest(message.getInterest());
+					break;
+			}
+		}
 		Util.printClock(this);
-		
 	}
 	
 	@Override

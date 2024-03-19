@@ -89,8 +89,20 @@ public class SequencerManager extends UnicastRemoteObject implements SequencerMa
 			alive = true;	
 			// TODO:
 			//(1) if yes try to get the Sequencer stub and let the sequencer acknowledge by calling the remote acknowledge method
-			//(2) if the attempt to get the sequencer fails, then alive = false. Start a new Sequencer using the SequencerContainer
 			// to achieve the above, use try-catch. (1) should be in the try clause and (2) in the catch clause
+			try {
+				SequencerManagerInterface seqmgr = (SequencerManagerInterface) Util.getProcessStub("secuencer", Config.PORT4);
+				alive = seqmgr.acknowledge();
+				// update id based on successor's current id
+				id = seqmgr.getId() + 1;
+
+			//(2) if the attempt to get the sequencer fails, then alive = false. Start a new Sequencer using the SequencerContainer
+			} catch (Exception e) {
+				alive = false;
+
+				SequencerContainer sc = new SequencerContainer("secuencer", Config.PORT4);
+			}
+
 			
 		} else {
 			try {
